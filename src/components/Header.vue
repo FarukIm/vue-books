@@ -1,7 +1,8 @@
-<template></template>
+<template>
+  <div>
+    <div id="logo"></div>
+    <div id="title"></div>
+  </div>
+</template>
 
-<script>
-export default {
-  name: 'Header'
-}
-</script>
+<script setup></script>
