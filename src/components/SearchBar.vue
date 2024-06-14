@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import { debounce } from 'lodash'
 
 const emit = defineEmits(['search-query'])
