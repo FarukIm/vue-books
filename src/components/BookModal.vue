@@ -19,16 +19,16 @@
         </button>
       </div>
       <p>{{ book.description }}</p>
-      <button
-        class="bg-blue-500 absolute bottom-2 left-1/2 transform -translate-x-1/2"
-      >
-        LikeIcon
-      </button>
+      <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2">
+        <LikeButton />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import LikeButton from './LikeButton.vue'
+
 const emit = defineEmits(['close-modal'])
 
 defineProps({
