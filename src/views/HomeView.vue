@@ -2,7 +2,9 @@
   <BookModal
     :isOpen="isModalOpen"
     :book="selectedBook"
+    :isLiked="likedBooks.includes(selectedBook.id)"
     @close-modal="isModalOpen = false"
+    @like="handleLike($event)"
   />
   <main class="flex flex-col w-full justify-center items-center mt-4">
     <div>
@@ -16,7 +18,9 @@
       <div v-for="book in displayData" :key="book.id">
         <ItemCard
           :book="book"
+          :isLiked="likedBooks.includes(book.id)"
           @open-modal="(isModalOpen = true), (selectedBook = $event)"
+          @like="handleLike($event)"
         />
       </div>
     </div>
@@ -37,6 +41,16 @@ const error = ref(null)
 const selectedBook = ref({})
 const isModalOpen = ref(false)
 const searchQuery = ref('')
+const likedBooks = ref([])
+
+const handleLike = (bookId) => {
+  if (likedBooks.value.includes(bookId)) {
+    likedBooks.value = likedBooks.value.filter((id) => id !== bookId)
+  } else {
+    likedBooks.value.push(bookId)
+  }
+  $cookies.set('likedBooks', JSON.stringify(likedBooks.value))
+}
 
 const fetchData = async () => {
   try {
@@ -65,5 +79,8 @@ watch(searchQuery, () => {
 
 onMounted(() => {
   fetchData()
+  if ($cookies.isKey('likedBooks')) {
+    likedBooks.value = $cookies.get('likedBooks')
+  }
 })
 </script>

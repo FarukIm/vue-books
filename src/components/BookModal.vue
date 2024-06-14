@@ -21,7 +21,11 @@
       </div>
       <p>{{ book.description }}</p>
       <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2">
-        <LikeButton :bookId="book.id" />
+        <LikeButton
+          :bookId="book.id"
+          :isLiked="isLiked"
+          @like="emit('like', book.id)"
+        />
       </div>
     </div>
   </div>
@@ -29,8 +33,6 @@
 
 <script setup>
 import LikeButton from './LikeButton.vue'
-
-const emit = defineEmits(['close-modal'])
 
 defineProps({
   isOpen: {
@@ -40,6 +42,12 @@ defineProps({
   book: {
     type: Object,
     required: true
+  },
+  isLiked: {
+    type: Boolean,
+    required: true
   }
 })
+
+const emit = defineEmits(['close-modal', 'like'])
 </script>

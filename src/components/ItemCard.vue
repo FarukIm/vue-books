@@ -12,7 +12,11 @@
       <p class="text-gray-700 text-base">{{ book.publication_year }}</p>
     </div>
     <div class="w-full flex justify-center mb-2">
-      <LikeButton :bookId="book.id" />
+      <LikeButton
+        :bookId="book.id"
+        :isLiked="isLiked"
+        @like="emit('like', book.id)"
+      />
     </div>
   </div>
 </template>
@@ -23,7 +27,11 @@ defineProps({
   book: {
     type: Object,
     required: true
+  },
+  isLiked: {
+    type: Boolean,
+    required: true
   }
 })
-const emit = defineEmits(['open-modal'])
+const emit = defineEmits(['open-modal', 'like'])
 </script>
