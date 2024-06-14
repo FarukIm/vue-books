@@ -25,8 +25,4 @@ const emitSearchQuery = debounce((query) => {
 const onInput = () => {
   emitSearchQuery(searchQuery.value)
 }
-
-watch(searchQuery, (newQuery) => {
-  emitSearchQuery(newQuery)
-})
 </script>

@@ -1,11 +1,10 @@
 <template>
-  <h1>Home</h1>
   <BookModal
     :isOpen="isModalOpen"
     :book="selectedBook"
     @close-modal="isModalOpen = false"
   />
-  <main class="flex flex-col w-full justify-center items-center">
+  <main class="flex flex-col w-full justify-center items-center mt-4">
     <div>
       <SearchBar @search-query="searchQuery = $event" />
     </div>
