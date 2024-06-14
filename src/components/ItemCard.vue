@@ -12,46 +12,18 @@
       <p class="text-gray-700 text-base">{{ book.publication_year }}</p>
     </div>
     <div class="w-full flex justify-center mb-2">
-      <LikeButton :isLiked="isLiked" @like="handleLike" />
+      <LikeButton :bookId="book.id" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { inject, ref } from 'vue'
-
 import LikeButton from './LikeButton.vue'
-
-const { book } = defineProps({
+defineProps({
   book: {
     type: Object,
     required: true
   }
 })
-
-const $cookies = inject('$cookies')
-
 const emit = defineEmits(['open-modal'])
-
-const isLiked = ref(
-  $cookies.get('likedBooks')?.includes(book.id) ? true : false
-)
-
-const handleLike = () => {
-  isLiked.value = !isLiked.value
-  const likedBooks = $cookies.get('likedBooks')
-  if (likedBooks && likedBooks.includes(book.id)) {
-    $cookies.set(
-      'likedBooks',
-      JSON.stringify(likedBooks.filter((id) => id !== book.id))
-    )
-  } else if (likedBooks === null) {
-    $cookies.set('likedBooks', JSON.stringify([book.id]))
-  } else {
-    $cookies.set(
-      'likedBooks',
-      JSON.stringify([...$cookies.get('likedBooks'), book.id])
-    )
-  }
-}
 </script>

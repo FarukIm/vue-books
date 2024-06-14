@@ -5,7 +5,8 @@
     @click="emit('close-modal')"
   >
     <div
-      class="bg-white h-1/6 rounded-xl p-4 w-full my-6 mx-2 lg:w-1/2 2xl:w-1/3 relative"
+      class="bg-white h-1/6 min-h-56 rounded-xl p-4 w-full my-6 mx-2 lg:w-1/2 2xl:w-1/3 relative"
+      @click="$event.stopPropagation()"
     >
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-3xl mb-1 text-blue-500 font-semibold">
@@ -20,7 +21,7 @@
       </div>
       <p>{{ book.description }}</p>
       <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2">
-        <LikeButton />
+        <LikeButton :bookId="book.id" />
       </div>
     </div>
   </div>
