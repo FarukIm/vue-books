@@ -34,7 +34,7 @@ const data = ref([])
 const displayData = ref([])
 const loading = ref(true)
 const error = ref(null)
-const selectedBook = ref(null)
+const selectedBook = ref({})
 const isModalOpen = ref(false)
 const searchQuery = ref('')
 
