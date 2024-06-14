@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <header>
     <div id="logo"></div>
     <div id="title"></div>
-  </div>
+  </header>
 </template>
 
 <script setup></script>
