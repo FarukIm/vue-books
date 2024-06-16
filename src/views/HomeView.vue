@@ -1,4 +1,5 @@
 <template>
+  <AppHeader @search-query="searchQuery = $event" />
   <BookModal
     :isOpen="isModalOpen"
     :book="selectedBook"
@@ -6,10 +7,7 @@
     @close-modal="isModalOpen = false"
     @like="handleLike($event)"
   />
-  <main class="flex flex-col w-full justify-center items-center mt-4">
-    <div>
-      <SearchBar @search-query="searchQuery = $event" />
-    </div>
+  <main class="flex flex-col w-full justify-center items-center mt-20">
     <div v-if="loading">Loading...</div>
     <div
       v-else
@@ -30,9 +28,11 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import { getBooks, updateLike } from '../api'
+
 import ItemCard from '@/components/ItemCard.vue'
 import BookModal from '@/components/BookModal.vue'
 import SearchBar from '@/components/SearchBar.vue'
+import AppHeader from '@/components/AppHeader.vue'
 
 const data = ref([])
 const displayData = ref([])
@@ -44,15 +44,13 @@ const searchQuery = ref('')
 const likedBooks = ref([])
 
 const handleLike = async (bookId) => {
-  let res
   if (likedBooks.value.includes(bookId)) {
     likedBooks.value = likedBooks.value.filter((id) => id !== bookId)
-    res = await updateLike(bookId, false)
+    await updateLike(bookId, false)
   } else {
     likedBooks.value.push(bookId)
-    res = await updateLike(bookId, true)
+    await updateLike(bookId, true)
   }
-  console.log(res)
   $cookies.set('likedBooks', JSON.stringify(likedBooks.value))
 }
 

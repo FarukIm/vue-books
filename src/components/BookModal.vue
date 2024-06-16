@@ -5,11 +5,11 @@
     @click="emit('close-modal')"
   >
     <div
-      class="bg-white h-1/6 min-h-56 rounded-xl p-4 w-full my-6 mx-2 lg:w-1/2 2xl:w-1/3 relative"
+      class="flex flex-col gap-y-4 bg-white max-h-3/4 max-w-screen-md min-h-96 rounded-xl p-4 w-full my-6 mx-2 md:w-2/3"
       @click="$event.stopPropagation()"
     >
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-3xl mb-1 text-blue-500 font-semibold">
+      <div class="flex justify-between items-center">
+        <h2 class="text-3xl text-blue-500 font-semibold">
           {{ book.title }}
         </h2>
         <button
@@ -20,21 +20,48 @@
         </button>
       </div>
       <p>{{ book.description }}</p>
-      <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2">
+
+      <div class="w-full flex justify-between items-center">
+        <h3 class="text-2xl text-blue-500">Comments</h3>
         <LikeButton
           :bookId="book.id"
           :isLiked="isLiked"
           @like="emit('like', book.id)"
         />
       </div>
+      <div class="overflow-y-auto h-56">
+        <div
+          v-if="loading === true"
+          class="w-full flex justify-center items-center"
+        >
+          Loading...
+        </div>
+        <div
+          v-else-if="comments.length === 0"
+          class="w-full flex justify-center items-center"
+        >
+          No comments yet :(
+        </div>
+        <div v-else v-for="comment in comments" :key="comment.id">
+          <Comment :comment="comment" />
+        </div>
+      </div>
+      <div class="border-t-2 pt-2">
+        <CommentInput @submit-comment="handleCommentSubmit($event)" />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref, toRef, watch } from 'vue'
+import { getComments, addComment } from '@/api'
+
+import Comment from './Comment.vue'
+import CommentInput from './CommentInput.vue'
 import LikeButton from './LikeButton.vue'
 
-defineProps({
+const props = defineProps({
   isOpen: {
     type: Boolean,
     required: true
@@ -50,4 +77,33 @@ defineProps({
 })
 
 const emit = defineEmits(['close-modal', 'like'])
+
+const loading = ref(true)
+const comments = ref([])
+const isOpen = toRef(props, 'isOpen')
+
+const loadComments = async () => {
+  loading.value = true
+  if (props.book.id === undefined) return
+  try {
+    const response = await getComments(props.book.id)
+    comments.value = response
+  } catch {
+    comments.value = []
+  } finally {
+    loading.value = false
+  }
+}
+
+const handleCommentSubmit = async (comment) => {
+  console.log(comment)
+  loading.value = true
+  const response = await addComment(props.book.id, comment)
+  comments.value.unshift(response)
+  loading.value = false
+}
+
+watch(isOpen, () => {
+  loadComments()
+})
 </script>

@@ -1,13 +1,11 @@
 <template>
-  <div class="max-w-sm mx-auto">
-    <input
-      type="text"
-      v-model="searchQuery"
-      @input="onInput"
-      placeholder="Search..."
-      class="w-full p-2 border border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
-    />
-  </div>
+  <input
+    type="text"
+    v-model="searchQuery"
+    @input="onInput"
+    placeholder="Search..."
+    class="w-full p-2 border border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
+  />
 </template>
 
 <script setup>

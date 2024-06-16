@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-80 grow pt-2 px-2 bg-slate-100">
+  <div class="flex flex-col max-w-96 grow pt-2 px-2 bg-slate-100">
     <img :src="book.cover_image" alt="book cover" class="object-cover" />
     <div class="h-20 flex flex-col justify-start items-start mt-0.5">
       <h4
