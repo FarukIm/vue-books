@@ -29,7 +29,7 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue'
-import { getBooks } from '../api'
+import { getBooks, updateLike } from '../api'
 import ItemCard from '@/components/ItemCard.vue'
 import BookModal from '@/components/BookModal.vue'
 import SearchBar from '@/components/SearchBar.vue'
@@ -43,12 +43,16 @@ const isModalOpen = ref(false)
 const searchQuery = ref('')
 const likedBooks = ref([])
 
-const handleLike = (bookId) => {
+const handleLike = async (bookId) => {
+  let res
   if (likedBooks.value.includes(bookId)) {
     likedBooks.value = likedBooks.value.filter((id) => id !== bookId)
+    res = await updateLike(bookId, false)
   } else {
     likedBooks.value.push(bookId)
+    res = await updateLike(bookId, true)
   }
+  console.log(res)
   $cookies.set('likedBooks', JSON.stringify(likedBooks.value))
 }
 

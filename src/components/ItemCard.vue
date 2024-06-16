@@ -11,7 +11,7 @@
       <p class="text-gray-700 text-base">{{ book.author }}</p>
       <p class="text-gray-700 text-base">{{ book.publication_year }}</p>
     </div>
-    <div class="w-full flex justify-center mb-2">
+    <div class="w-full flex h-14 justify-center items-end mb-2">
       <LikeButton
         :bookId="book.id"
         :isLiked="isLiked"

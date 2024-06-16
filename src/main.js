@@ -10,7 +10,7 @@ import router from './router'
 const app = createApp(App)
 
 app.use(createPinia())
-app.use(VueCookies, { expires: '7d' })
+app.use(VueCookies, { expires: -1 })
 app.use(router)
 
 app.mount('#app')
