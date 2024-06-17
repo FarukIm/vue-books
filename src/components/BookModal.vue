@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="isOpen"
-    class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-10"
+    class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-10 z-50"
     @click="emit('close-modal')"
   >
     <div
