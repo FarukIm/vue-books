@@ -95,7 +95,6 @@ const loadComments = async () => {
 }
 
 const handleCommentSubmit = async (comment) => {
-  console.log(comment)
   loading.value = true
   const response = await addComment(props.book.id, comment)
   comments.value.unshift(response)

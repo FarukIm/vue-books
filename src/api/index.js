@@ -50,7 +50,6 @@ const updateLike = async (id, add) => {
     })
   })
   let data = await response.json()
-  console.log(data)
   return data
 }
 
