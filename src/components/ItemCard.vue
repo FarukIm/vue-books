@@ -15,6 +15,7 @@
       <LikeButton
         :bookId="book.id"
         :isLiked="isLiked"
+        :likeCount="book.like_count"
         @like="emit('like', book.id)"
       />
     </div>

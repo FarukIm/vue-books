@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row justify-center items-center gap-x-2 my-4">
     <button
-      class="px-4 py-2 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 disabled:opacity-50"
+      class="px-4 py-2 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 disabled:opacity-50 transition-all duration-300"
       :disabled="currentPage === 1"
       @click="goToPage(Number(currentPage) - 1)"
     >
@@ -11,7 +11,7 @@
     <div>Page {{ currentPage }} of {{ totalPages }}</div>
 
     <button
-      class="px-4 py-2 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 disabled:opacity-50"
+      class="px-4 py-2 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 disabled:opacity-50 transition-all duration-300"
       :disabled="currentPage === totalPages"
       @click="goToPage(Number(currentPage) + 1)"
     >

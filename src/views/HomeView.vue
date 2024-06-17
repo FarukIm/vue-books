@@ -55,11 +55,15 @@ const currentPage = ref(1)
 const totalPages = ref(1)
 
 const handleLike = async (bookId) => {
+  const bookIndex = displayData.value.findIndex((book) => book.id === bookId)
   if (likedBooks.value.includes(bookId)) {
-    likedBooks.value = likedBooks.value.filter((id) => id !== bookId)
+    displayData.value[bookIndex].like_count -= 1
+
     await updateLike(bookId, false)
   } else {
     likedBooks.value.push(bookId)
+    displayData.value[bookIndex].like_count += 1
+
     await updateLike(bookId, true)
   }
   $cookies.set('likedBooks', JSON.stringify(likedBooks.value))
