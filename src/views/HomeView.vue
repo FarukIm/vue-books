@@ -58,7 +58,7 @@ const handleLike = async (bookId) => {
   const bookIndex = displayData.value.findIndex((book) => book.id === bookId)
   if (likedBooks.value.includes(bookId)) {
     displayData.value[bookIndex].like_count -= 1
-
+    likedBooks.value = likedBooks.value.filter((id) => id !== bookId)
     await updateLike(bookId, false)
   } else {
     likedBooks.value.push(bookId)

@@ -1,35 +1,26 @@
 # vue-books
 
-This template should help get you started developing with Vue 3 in Vite.
+This is the frontend of a book review site made using vue3.
+The backend for this application can be found [here](https://github.com/FarukIm/laravel-booksAPI)
 
-## Recommended IDE Setup
+## Installation
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Before installing make sure you have node installed on your machine, visit [the official documentation](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
-## Customize configuration
+- To check out this project you first need to clone the repository:
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+```
+git clone https://github.com/FarukIm/vue-books
+```
 
-## Project Setup
+- Next you need to navigate inside the directory and install all of the dependencies:
 
-```sh
+```
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+- Once the installation is finished, run the following command to start the project:
 
-```sh
+```
 npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```

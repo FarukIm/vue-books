@@ -5,7 +5,7 @@
     @click="emit('close-modal')"
   >
     <div
-      class="relative flex flex-col gap-y-4 bg-white max-h-3/4 max-w-screen-md min-h-96 rounded-xl p-4 md:p-8 w-full my-6 mx-2 md:w-2/3"
+      class="relative flex flex-col gap-y-4 bg-white max-h-3/4 max-w-screen-md min-h-96 rounded-xl p-4 md:p-12 w-full my-6 mx-2 md:w-2/3"
       @click="$event.stopPropagation()"
     >
       <button
@@ -28,7 +28,7 @@
           @like="emit('like', book.id)"
         />
       </div>
-      <div class="overflow-y-auto h-56">
+      <div class="overflow-y-auto h-56 flex flex-col-reverse">
         <div
           v-if="loading === true"
           class="w-full flex justify-center items-center"
