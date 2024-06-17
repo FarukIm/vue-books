@@ -4,7 +4,7 @@
     v-model="searchQuery"
     @input="onInput"
     placeholder="Search..."
-    class="w-full p-2 border border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
+    class="w-full p-2 pl-4 border border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
   />
 </template>
 

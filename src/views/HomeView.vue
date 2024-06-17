@@ -9,6 +9,7 @@
   />
   <main class="flex flex-col w-full justify-center items-center mt-20">
     <div v-if="loading">Loading...</div>
+    <div v-else-if="totalPages === 0">No results :(</div>
     <div
       v-else
       class="w-full flex flex-row flex-wrap justify-center items-center gap-4 max-w-screen-xl mt-2"
@@ -22,26 +23,36 @@
         />
       </div>
     </div>
+    <div
+      v-show="totalPages > 0"
+      class="w-full flex justify-center items-center"
+    >
+      <PaginationButtons
+        :totalPages="totalPages"
+        :currentPage="currentPage"
+        @update-page="currentPage = $event"
+      />
+    </div>
   </main>
 </template>
 
 <script setup>
 import { ref, onMounted, watch } from 'vue'
-import { getBooks, updateLike } from '../api'
+import { getBooks, updateLike, searchBooks } from '../api'
 
 import ItemCard from '@/components/ItemCard.vue'
 import BookModal from '@/components/BookModal.vue'
-import SearchBar from '@/components/SearchBar.vue'
+import PaginationButtons from '@/components/PaginationButtons.vue'
 import AppHeader from '@/components/AppHeader.vue'
 
-const data = ref([])
 const displayData = ref([])
 const loading = ref(true)
-const error = ref(null)
 const selectedBook = ref({})
 const isModalOpen = ref(false)
 const searchQuery = ref('')
 const likedBooks = ref([])
+const currentPage = ref(1)
+const totalPages = ref(1)
 
 const handleLike = async (bookId) => {
   if (likedBooks.value.includes(bookId)) {
@@ -56,11 +67,26 @@ const handleLike = async (bookId) => {
 
 const fetchData = async () => {
   try {
-    const result = await getBooks()
-    data.value = result
-    displayData.value = result
+    loading.value = true
+    const result = await getBooks(currentPage.value)
+    displayData.value = result.books
+    totalPages.value = result.pageCount
   } catch (err) {
-    error.value = 'Failed to fetch data'
+    totalPages.value = 0
+    console.error(err)
+  } finally {
+    loading.value = false
+  }
+}
+
+const fetchSearch = async () => {
+  try {
+    loading.value = true
+    const result = await searchBooks(currentPage.value, searchQuery.value)
+    displayData.value = result.books
+    totalPages.value = result.pageCount
+  } catch (err) {
+    totalPages.value = 0
     console.error(err)
   } finally {
     loading.value = false
@@ -68,14 +94,19 @@ const fetchData = async () => {
 }
 
 watch(searchQuery, () => {
+  currentPage.value = 1
   if (searchQuery.value === '') {
-    displayData.value = data.value
+    fetchData()
   } else {
-    loading.value = true
-    displayData.value = data.value.filter((book) =>
-      book.title.toLowerCase().includes(searchQuery.value.toLowerCase())
-    )
-    loading.value = false
+    fetchSearch()
+  }
+})
+
+watch(currentPage, () => {
+  if (searchQuery.value === '') {
+    fetchData()
+  } else {
+    fetchSearch()
   }
 })
 

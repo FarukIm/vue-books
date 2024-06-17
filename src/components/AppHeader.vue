@@ -1,6 +1,6 @@
 <template>
   <header
-    class="flex items-center justify-center w-full h-16 bg-blue-50 fixed top-0"
+    class="flex items-center justify-center w-full h-16 bg-blue-50 fixed top-0 px-4"
   >
     <div class="flex items-center max-w-screen-xl w-full gap-8">
       <div class="flex items-center justify-center gap-x-2">
